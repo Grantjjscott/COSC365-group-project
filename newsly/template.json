@@ -1,11 +1,12 @@
 {
-    "news": [{
-        "headline" : "template",
-        "img" : "http://Linktoimg.com",
-        "date": "01-01-19"
-
-
+  "news": [
+    {
+      "headline": "template",
+      "img": "http://Linktoimg.com",
+      "date": "01-01-19"
+    },
+    {
+      "user": "firebase"
     }
-    ]
-
+  ]
 }
