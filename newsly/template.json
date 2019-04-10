@@ -1,12 +1,48 @@
 {
-  "news": [
-    {
+  "news": [{
       "headline": "template",
       "img": "http://Linktoimg.com",
-      "date": "01-01-19"
-    },
-    {
-      "user": "firebase"
-    }
+      "date": "01-01-19",
+      "link": "Linktowebsite.com",
+      "summary": "blalblablab",
+      "comments":{
+          "comment":{
+            "user": "id",
+            "name": "name",
+            "date": "01-01-19",
+            "text": "qwertyuiopp  qwertyuiop"
+          },
+          "comment":{
+            "user": "id",
+            "name": "name",
+            "date": "01-01-19",
+            "text": "qwertyuiopp  qwertyuiop"
+          }
+        }
+      },
+      {
+      "headline": "template",
+      "img": "http://Linktoimg.com",
+      "date": "01-01-19",
+      "link": "Linktowebsite.com",
+      "summary": "blalblablab",
+      "comments":{
+          "comment":{
+            "user": "id",
+            "name": "name",
+            "date": "01-01-19",
+            "text": "qwertyuiopp  qwertyuiop"
+          },
+          "comment":{
+            "user": "id",
+            "name": "name",
+            "date": "01-01-19",
+            "text": "qwertyuiopp  qwertyuiop"
+          }
+        }
+      }
+      
+    
+    
   ]
 }
