@@ -10,8 +10,13 @@ start(){
 };
 firebase.initializeApp(config);
 console.log("loaded");
+
+
 }
 }
+
+
+
 
 starter = new fireStarter();
 

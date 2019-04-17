@@ -1,9 +1,8 @@
 
 body {
-    background-image: url("img/newsbg.jpg");
+    background-image: url("../img/newsbg.jpg");
     padding: 15%;
     background-size: auto;
-    overflow:hidden:
 }
 #main{
     padding: 10%; 
