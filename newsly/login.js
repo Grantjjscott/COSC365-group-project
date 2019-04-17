@@ -1,1 +1,0 @@
-import * as fb from "./fire"

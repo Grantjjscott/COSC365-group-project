@@ -1,16 +1,13 @@
+function signOut() {
+  console.log("signing out")
+  firebase.auth().signOut().then(function () {
+    console.log('Successfully Signed out');
+  }).catch(function (error) {
+    return res.status(400).json(error);
+  });
+}
 
-
-function signOut(){
-    console.log("signing out")
-    firebase.auth().signOut().then(function() {
-    }).catch(function(error) {
-      // An error happened.
-    });
-  
-    
-  }
-  window.onload=()=>{
-
-    var listener = document.querySelector('#signout')
-    listener.addEventListener('click', signOut())
-  }
+window.onload = () => {
+  let listener = document.querySelector('#signout')
+  listener.addEventListener('click', signOut())
+}
