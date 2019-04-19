@@ -11,7 +11,11 @@ function showPost(){
  link= obj.link;
  summary= obj.summary;
 
- const template = '<div class="card mb-4" id='+lvl+'> <img class="card-img-top" src="'+img+'" alt="Card image cap"/><div class="card-body"> <h2 class="card-title">'+headline+'</h2><p class="card-text"> '+summary+' <br/>  </p><a href='+link+'>source</a> <a href="#" class="btn btn-primary">Comments &rarr;</a></div><div class="card-footer text-muted">Posted: '+date+' </div></div>;'
+ const template = '<div class="card mb-4" id='+lvl+'>\
+  <img class="card-img-top" src="'+img+'" alt="Card image cap"/>\
+  <div class="card-body"> <h2 class="card-title">'+headline+'</h2>\
+  <p class="card-text"> '+summary+' <br/>  </p></div>\
+  <a href='+link+'>source</a> <a href="#" class="btn btn-primary">Comments &rarr;</a><div class="card-footer text-muted">Posted: '+date+' </div></div></div>;'
     
   $("#posts").append(template);
   
