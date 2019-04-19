@@ -10,7 +10,6 @@ class fireStarter {
     };
     firebase.initializeApp(config);
 
-    
     console.log("loaded");
   }
 }
@@ -21,4 +20,4 @@ database = firebase.database();
 
 
 
-  
+
