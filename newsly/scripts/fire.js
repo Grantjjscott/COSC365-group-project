@@ -9,11 +9,16 @@ class fireStarter {
       messagingSenderId: "218187384395"
     };
     firebase.initializeApp(config);
+
+    
     console.log("loaded");
   }
 }
 
 starter = new fireStarter();
 starter.start();
+database = firebase.database();
 
 
+
+  

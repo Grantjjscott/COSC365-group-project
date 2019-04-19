@@ -1,11 +1,11 @@
 {
   "news": [
     {
-      "headline": "template",
-      "img": "http://Linktoimg.com",
-      "date": "01-01-19",
-      "link": "Linktowebsite.com",
-      "summary": "blalblablab",
+      "headline": "Spurs' latest diamond in the rough dominates Nuggets in Game 3",
+      "img": "https://cdn.nba.net/nba-drupal-prod/styles/landscape_1045w/s3/2019-04/USATSI_12556547_0.jpg?itok=GmgTMoWj",
+      "date": "04-19-2019",
+      "link": "https://www.nba.com/article/2019/04/19/spurs-derrick-white-dominates-game-3",
+      "summary": "Nuggets are now down 2-1 one",
       "comments": {
         "comment": {
           "user": "id",
@@ -22,11 +22,11 @@
       }
     },
     {
-      "headline": "template",
-      "img": "http://Linktoimg.com",
-      "date": "01-01-19",
-      "link": "Linktowebsite.com",
-      "summary": "blalblablab",
+      "headline": "Ben Simmons’ broke the Nets’ spirit in Game 3. ",
+      "img": "https://cdn.vox-cdn.com/thumbor/AJ0Nmhd5to5EIBIMi6Yqwidg0X0=/928x0:2485x1761/620x413/filters:focal(1482x424:1904x846):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/63640555/1143626842.jpg.0.jpg",
+      "date": "04-19-2019",
+      "link": "https://www.sbnation.com/nba/2019/4/19/18507266/ben-simmons-76ers-vs-nets-nba-playoffs-2019",
+      "summary": "Simmons talked his talk, then backed it up. This is the kind of dominant performance NBA stars need.",
       "comments": {
         "comment": {
           "user": "id",
