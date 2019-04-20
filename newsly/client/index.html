@@ -7,13 +7,20 @@
   <meta name="description" content="">
   <meta name="author" content="Grant Scott, Zac Zajdel, Jonah Downs">
   <title>Newsly</title>
+  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" src="../css/main.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
-  <link href="../css/main.css" rel="stylesheet">
+ 
   <script src="../scripts/main.js"></script>
+
+  <link href="../css/main.css" rel="stylesheet">
+  <style>
+
+  </style>
+
 </head>
 
 <body>
@@ -33,10 +40,10 @@
 
   <!-- Page Content -->
   <div class="container">
-    <div class="row">
-      <div class="card-group">
+    
+      <div class="card-columns">
         <!-- Blog Entries Column -->
-        <div id="posts" class="card-group">
+        <div id="posts" >
           <!-- Posts are being inserted from Firebase in this section-->
         </div>
       </div>
@@ -44,7 +51,7 @@
   </div>
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer class="py-5 bg-primary">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Newsly 2019</p>
     </div>
@@ -62,6 +69,7 @@
     crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
   <script src="../scripts/fire.js"></script>
+ 
 </body>
 
 </html>

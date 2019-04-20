@@ -1,25 +1,46 @@
 const results = [];
+var i = 0;
 function showPost() {
 
 
-  lvl = results[results.length - 1]
-  obj = JSON.parse(lvl)
+  lvl = results.length
+  obj = JSON.parse(results[results.length - 1])
 
   headline = obj.headline
   img = obj.img;
-  date = obj.date;
+  date =  new Date(obj.date);
   link = obj.link;
   summary = obj.summary;
+  
+  const template = 
+  `
+  
+  <div class="card mb-4" id=${i}>
+  <img class="card-img-top" src="${img}" alt="Card image cap"/>
+  <div class="card-body"> <h2 class="card-title">${headline}</h2>
+  <p class="card-text">${summary}<br/>  </p></div>
+  <div class=" btn btn-link" href=${link}>source</div> 
+  <a href="#" class="btn btn-primary mb-2">Read More &rarr;</a>
+  
+  <div class="card-footer text-muted">Posted: ${date}</div></div></div>`
+  if ( headline != null){
+  if(i==0){
+  $("#posts").before(template);
+  console.log(headline)
+ 
+  }
+  let target =i-1
+  if(i>0){
+    console.log("#"+i);
+    console.log(headline)
+    $("#"+target).before(template);
+  
+  }
+  i=i+1;
+  
 
-  const template = `<div class="card mb-4" id=${lvl}>\
-  <img class="card-img-top" src="${img}" alt="Card image cap"/>\
-  <div class="card-body"> <h2 class="card-title">${headline}</h2>\
-  <p class="card-text">${summary}<br/>  </p></div>\
-  <a href=${link}>source</a> <a href="#" class="btn btn-primary">Read More &rarr;</a><div class="card-footer text-muted">Posted: ${date}</div></div></div>`
-
-  $("#posts").append(template);
 }
-
+}
 /*
 
 */
