@@ -1,43 +1,62 @@
 const results = [];
+const keys= []
 var i = 0;
+
+function getComments(postKey){
+    let query = database.ref('Feedback').child(postKey)
+    .on("value",function(data){
+        console.log(data.val());
+        
+    });
+
+
+    
+}
+
+
+
+  
+
 function showPost() {
 
-
-  lvl = results.length
-  obj = JSON.parse(results[results.length - 1])
-
-  headline = obj.headline
-  img = obj.img;
-  date =  new Date(obj.date);
-  link = obj.link;
-  summary = obj.summary;
+  
+  
+  obj = (results[results.length - 1])
+  key = (obj.key);
+  console.log(key);
+  headline = obj.val().headline
+  img = obj.val().img;
+  date =  new Date(obj.val().date);
+  link = obj.val().link;
+  
+  summary = obj.val().summary;
   
   const template = 
   `
-  
   <div class="card mb-4" id=${i}>
   <img class="card-img-top" src="${img}" alt="Card image cap"/>
-  <div class="card-body"> <h2 class="card-title">${headline}</h2>
+  <div class="card-body"> <h4 class="card-title">${headline}</h4>
   <p class="card-text">${summary}<br/>  </p></div>
-  <div class=" btn btn-link" href=${link}>source</div> 
-  <a href="#" class="btn btn-primary mb-2">Read More &rarr;</a>
-  
+  <div class ='text-center'>
+  <a class="btn btn-link" href=${link}>Source</a>
+  <a href="#" class="btn btn-outline-primary mb-2"> Comments</a>
+  </div>
   <div class="card-footer text-muted">Posted: ${date}</div></div></div>`
   if ( headline != null){
   if(i==0){
   $("#posts").before(template);
-  console.log(headline)
+  
  
   }
   let target =i-1
   if(i>0){
-    console.log("#"+i);
-    console.log(headline)
+    
+    
     $("#"+target).before(template);
   
   }
   i=i+1;
-  
+ 
 
 }
 }
@@ -68,8 +87,9 @@ class mainpageHandler {
       showPost();
     });
 
-    query.on("child_added", function (data) {
-      results.push(JSON.stringify(data.val()));
+    query.orderByChild("date").on("child_added", function (data){
+    
+      results.push(data);
     });
   }
 }
@@ -78,6 +98,9 @@ handler = new mainpageHandler();
 
 window.onload = () => {
   handler.getAllPosts();
+  getComments('0')
 }
+
+
 
 

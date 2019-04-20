@@ -13,51 +13,110 @@ class fireStarter {
       console.log("loaded");
     }
   }
+
+  function addComments(key){
+    let postData = {"comments":[
+      {
+      "comment":{
+        "user":"yeet",
+        "date":"yeet",
+        "text":"yeet"
+    }
+  }
+    ]}
+
+    let updates ={}
+
+    updates['/Feedback/'+key] =postData;
+    firebase.database().ref().update(updates);
+
+  }
   function writeNewPost(article) {
     // A post entry.
     console.log("yeet")
-    var postData = {
+    let postData = {
       headline: article.title,
       date: article.publishedAt,
       img: article.urlToImage,
       link: article.url,
       summary: article.description,
-      comments:[]
+      comments:[
+       
+      ]
+      
       
     };
+    
   
     // Get a key for a new Post.
     var newPostKey = firebase.database().ref().child('news').push().key;
   
     // Write the new post's data simultaneously in the posts list and the user's post list.
-    var updates ={}
+    let updates ={}
     updates['/news/' + newPostKey]=postData;
-  return firebase.database().ref().update(updates)
-  
+
+    firebase.database().ref().update(updates);
+    addComments(newPostKey);
     
   }
-const apiResults =[];
-  
-  
-  starter = new fireStarter();
-  starter.start();
-  database = firebase.database();
 
-var url = 'https://newsapi.org/v2/top-headlines?' +
-          'country=us&' +
-          'apiKey=87bdd4b62d384ac3b9b991a3a24da7cb';
-var request = new XMLHttpRequest();
+  function MainCall(){
+      let apiResults =[];
 
-request.open('GET', url, true)
+      
+     
+      database = firebase.database();
 
-request.onload = function(){
-    var data= JSON.parse(this.response);
-    data.articles.forEach(article =>{
-    writeNewPost(article);
+    let url = 'https://newsapi.org/v2/top-headlines?' +
+              'country=us&' +
+              'apiKey=87bdd4b62d384ac3b9b991a3a24da7cb';
+    let request = new XMLHttpRequest();
+
+    request.open('GET', url, true)
+
+    request.onload = function(){
+        let data= JSON.parse(this.response);
+        data.articles.forEach(article =>{
+        writeNewPost(article);
 
 
+        }
+        )
     }
-    )
-}
-request.send()
+    request.send()
+    }
 
+
+    function CatCall(cat){
+      let apiResults =[];
+
+      
+  
+      database = firebase.database();
+
+    let url = 'https://newsapi.org/v2/top-headlines?' +
+              'country=us&' +
+              'category=' +cat +'&'+
+              'apiKey=87bdd4b62d384ac3b9b991a3a24da7cb';
+    let request = new XMLHttpRequest();
+
+    request.open('GET', url, true)
+
+    request.onload = function(){
+        let data= JSON.parse(this.response);
+        data.articles.forEach(article =>{
+        writeNewPost(article);
+
+
+        }
+        )
+    }
+    request.send()
+
+    };
+
+    starter = new fireStarter();
+    starter.start();
+    MainCall();
+    CatCall('Science');
+    CatCall('Sports');
