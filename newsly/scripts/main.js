@@ -1,7 +1,8 @@
+//starting vals
 const results = [];
 const keys= []
 var i = 0;
-
+// queries feedback branch for matching key
 function getComments(postKey){
     let query = database.ref('Feedback').child(postKey)
     .on("value",function(data){
@@ -13,10 +14,8 @@ function getComments(postKey){
     
 }
 
-
-
   
-
+// called when a post is pushed to the results[] it renders them back to front
 function showPost() {
 
   
@@ -63,6 +62,7 @@ function showPost() {
 /*
 
 */
+// make the array.push an event so each time push is called we render a post
 const eventifiy = (arr, callback) => {
   arr.push = (e) => {
     Array.prototype.push.call(arr, e);
@@ -71,7 +71,7 @@ const eventifiy = (arr, callback) => {
 };
 
 class mainpageHandler {
-
+// signout
   signOut() {
     console.log("signing out")
     firebase.auth().signOut().then(() => {
@@ -80,7 +80,7 @@ class mainpageHandler {
       return res.status(400).json(error);
     });
   }
-
+// gets all posts from db and then pushes them to results array
   getAllPosts() {
     let query = database.ref('news/');
     eventifiy(results, (newArray) => {
@@ -95,9 +95,11 @@ class mainpageHandler {
 }
 
 handler = new mainpageHandler();
-
+// main call
 window.onload = () => {
+  //main triger
   handler.getAllPosts();
+  //testing comment function
   getComments('0')
 }
 
