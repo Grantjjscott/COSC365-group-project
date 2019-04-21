@@ -63,7 +63,6 @@ class LoginHandler {
           console.log('invalid email.');
           return ('invalid email.');
         }
-
         console.log(error);
       });
   }
