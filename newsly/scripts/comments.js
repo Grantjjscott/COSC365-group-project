@@ -15,6 +15,7 @@
 const form = document.querySelector("form");
 form.addEventListener("submit", postComment);
 
+// Grabs the comment and then pushes it to the query in the database.
 const postComment = (e) => {
   e.preventDefault();
   let comment = document.getElementById('comment').value;
@@ -29,6 +30,22 @@ const postComment = (e) => {
   }
 
   document.getElementById('comment').value = '';
+}
+
+const addComment = (date, text, user) => {
+  let comments = document.getElementById('user-comment');
+
+  const template =
+    `<div id='user-comment' class='media mb-4'>
+        <img class='d-flex mr-3 rounded-circle' src=${source} alt='Photo from the article'>
+        <div class='media-body'>
+          <h5 class='mt=0'>${user}</h5>
+          ${postData}
+        </div>
+     </div>
+    `;
+
+  comments.innerHTML = template;
 }
 
 // handler = new mainpageHandler();
