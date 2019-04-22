@@ -19,19 +19,21 @@ form.addEventListener("submit", postComment);
 const postComment = (e) => {
   e.preventDefault();
   let comment = document.getElementById('comment').value;
+  let name = document.getElementById('name').value;
 
   if (name) {
     let query = database.ref('Feedback');
     query.push({
       date: new Date(),
       text: comment,
-      user: hello // HELP
+      user: name
     });
   }
 
   document.getElementById('comment').value = '';
 }
 
+// Grabs the comment area from post.html and then puts in the data from the comment.
 const addComment = (date, text, user) => {
   let comments = document.getElementById('user-comment');
 
@@ -40,7 +42,7 @@ const addComment = (date, text, user) => {
         <img class='d-flex mr-3 rounded-circle' src=${source} alt='Photo from the article'>
         <div class='media-body'>
           <h5 class='mt=0'>${user}</h5>
-          ${postData}
+          ${comment}
         </div>
      </div>
     `;
