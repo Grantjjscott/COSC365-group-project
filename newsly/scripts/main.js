@@ -3,6 +3,7 @@
 //starting vals
 
 let keys = new Array();
+let sources = new Array();
 var i = 0;
 
 var last= '';
@@ -24,8 +25,11 @@ function render(data){
   last =data.val().date;
   headline = data.val().headline;
   img = data.val().img;
+  sources.push(img)
   date = new Date(data.val().date);
+  
   link = data.val().link;
+  
   summary = data.val().summary;
 
   const template = `
@@ -85,11 +89,11 @@ class mainpageHandler {
 
       console.log((keys[(keys.length)-1]))
       console.log(data.key)
-      if ((data.key)!=keys[(keys.length)-1])  {
-      render(data)
-      }
-      if (data.key == keys[(keys.length)-1] ){
+      if (keys.includes(data.key) ||sources.includes(data.val().img))  {
         console.log("dupilacte found")
+      }
+      else {
+        render(data);
       }
       
     });
@@ -100,8 +104,9 @@ class mainpageHandler {
   
 
   $(window).scroll(function () { 
-    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
-       handler.getNextTwenty();
+    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10 && i< 100) {
+      
+      handler.getNextTwenty();
     }
   });
 

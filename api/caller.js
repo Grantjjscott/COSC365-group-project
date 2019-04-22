@@ -1,3 +1,4 @@
+var headlines = new Array();
 class fireStarter {
     start() {
       const config = {
@@ -33,7 +34,11 @@ class fireStarter {
   }
   function writeNewPost(article) {
     // A post entry.
-    let dup= false
+   if(headlines.includes(article.title)){
+     console.log('duplicate found');
+   }
+   else{
+    headlines.push(article.title);
     console.log("yeet")
     let postData = {
       headline: article.title,
@@ -44,17 +49,11 @@ class fireStarter {
     };
     let query = database.ref('news/');
    
-    query.orderByChild('headline')
-    .equalTo(postData.headline)
-    .on("value", function(data){
-      if( data.exists()){
-        dup = true;
-      }
-    })
     
   
+  
     // Get a key for a new Post.
-    if(dup === false){
+    
     var newPostKey = firebase.database().ref().child('news').push().key;
   
     // Write the new post's data simultaneously in the posts list and the user's post list.
@@ -63,10 +62,8 @@ class fireStarter {
 
     firebase.database().ref().update(updates);
     addComments(newPostKey);
-    }
-    if (dup == true){
-      console.log("dupiclate data caught");
-    }
+    
+  }
     
   }
 
@@ -107,6 +104,7 @@ class fireStarter {
     let url = 'https://newsapi.org/v2/top-headlines?' +
               'country=us&' +
               'category=' +cat +'&'+
+              'sortBy=popularity'+'&'+
               'apiKey=87bdd4b62d384ac3b9b991a3a24da7cb';
     let request = new XMLHttpRequest();
 
@@ -130,4 +128,4 @@ class fireStarter {
     //MainCall();
     CatCall('Science');
     CatCall('Sports');
-    CatCall('general');
+    CatCall('General');
