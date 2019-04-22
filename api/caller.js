@@ -33,6 +33,7 @@ class fireStarter {
   }
   function writeNewPost(article) {
     // A post entry.
+    let dup= false
     console.log("yeet")
     let postData = {
       headline: article.title,
@@ -40,15 +41,20 @@ class fireStarter {
       img: article.urlToImage,
       link: article.url,
       summary: article.description,
-      comments:[
-       
-      ]
-      
-      
     };
+    let query = database.ref('news/');
+   
+    query.orderByChild('headline')
+    .equalTo(postData.headline)
+    .on("value", function(data){
+      if( data.exists()){
+        dup = true;
+      }
+    })
     
   
     // Get a key for a new Post.
+    if(dup === false){
     var newPostKey = firebase.database().ref().child('news').push().key;
   
     // Write the new post's data simultaneously in the posts list and the user's post list.
@@ -57,6 +63,10 @@ class fireStarter {
 
     firebase.database().ref().update(updates);
     addComments(newPostKey);
+    }
+    if (dup == true){
+      console.log("dupiclate data caught");
+    }
     
   }
 
@@ -117,6 +127,7 @@ class fireStarter {
 
     starter = new fireStarter();
     starter.start();
-    MainCall();
+    //MainCall();
     CatCall('Science');
     CatCall('Sports');
+    CatCall('general');

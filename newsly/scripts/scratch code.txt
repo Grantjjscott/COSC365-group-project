@@ -1,0 +1,81 @@
+// make the array.push an event so each time push is called we render a post
+const eventifiy = (arr, callback) => {
+  arr.push = (e) => {
+    Array.prototype.push.call(arr, e);
+    callback(arr);
+  };
+};
+
+
+// called when a post is pushed to the results[] it renders them back to front
+function showPost() {
+  obj = (results[results.length - 1])
+  key = (obj.key);
+  keys.push = obj.key;
+  last =obj.val().date;
+  headline = obj.val().headline;
+  img = obj.val().img;
+  date = new Date(obj.val().date);
+  link = obj.val().link;
+  summary = obj.val().summary;
+  const template = `
+  <div class="card mb-4 border-primary" id=${i}>
+    <img class="card-img-top" src="${img}" alt="Card image cap"/>
+  <div class="card-body"> <h4 class="card-title">${headline}</h4>
+  <p class="card-text">${summary}<br/>  </p></div>
+  <div class ='text-center'>
+    <a class="btn btn-link" href=${link}>Source</a>
+    <div class="btn btn-outline-primary mb-2" value== ${key}> Comments</div>
+  </div>
+  <div class="card-footer text-muted">Posted: ${date}</div></div></div>`
+ if (headline != null) {
+    if (i == 0) {
+      $("#posts").before(template);
+      $('#'+i).bind("click", function(){
+        getComments(key);
+      });
+      
+    }
+    let target = i - 1
+    if (i > 0) {
+      $("#posts").before(template);
+      $('#'+i).bind("click", function(){
+        getComments(key);
+
+    });
+  }
+  console.log(i)
+    i = i + 1;
+    
+  }
+
+
+getAllPosts() {
+    let query = database.ref('news/');
+   
+
+    query.orderByChild("date").on("child_added", function (data) {
+
+      render.data
+    });
+  }
+
+  // gets all posts from db and then pushes them to results array
+  getLastTwentyPosts() {
+    let query = database.ref('news/');
+   
+
+    query.orderByChild("date").limitToFirst(20).on("child_added", function (data) {
+      if (!(keys.includes(data.key))  ){
+      render(data);
+      }
+    });
+  }
+
+}
+
+
+
+ //eventifiy(results, (newArray) => {
+      //showPost();
+    //});

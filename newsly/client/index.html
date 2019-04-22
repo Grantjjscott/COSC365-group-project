@@ -12,11 +12,10 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" src="../css/main.css" />
 
-  <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+ 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
- 
-  <script src="../scripts/main.js"></script>
+  <script defer src="../scripts/main.js"></script>
 
   <link href="../css/main.css" rel="stylesheet">
   <style>
@@ -30,18 +29,28 @@
   <nav class="navbar navbar-dark bg-primary fixed-top">
     <div class="container">
       <a class="navbar-brand" href="index.html">Newsly</a>
+      <div class="h4 text-center text-light">Simple, Easy Newsly</div>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Account</a>
+            <div class= "btn-group dropdown">
+                <button class="btn btn-secondary dropdown-toggle bg-primary border-primary" type="button" id="Account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
+                  </button>
+                <ul id ="user-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            
+                </ul>
+                  </div>
         </li>
       </ul>
     </div>
+    
+  
   </nav>
 
   <h1 class="my-4 text-center">Newsly Story Feed</h1> <br />
 
   <!-- Page Content -->
-  <div class="container mw-80">
+  <div  class="container mw-90" c>
     
       <div class="card-columns">
         <!-- Blog Entries Column -->
@@ -49,7 +58,9 @@
           <!-- Posts are being inserted from Firebase in this section-->
         </div>
       </div>
+     
     </div>
+  
   </div>
 
   <!-- Footer -->

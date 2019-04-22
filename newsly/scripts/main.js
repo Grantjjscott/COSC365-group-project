@@ -1,7 +1,14 @@
+
+
 //starting vals
-const results = [];
-const keys = []
+
+let keys = new Array();
 var i = 0;
+
+var last= '';
+
+
+
 // queries feedback branch for matching key
 function getComments(postKey) {
   let query = database.ref('Feedback').child(postKey)
@@ -10,81 +17,118 @@ function getComments(postKey) {
     });
 }
 
-// called when a post is pushed to the results[] it renders them back to front
-function showPost() {
-  obj = (results[results.length - 1])
-  key = (obj.key);
-  console.log(key);
-  headline = obj.val().headline
-  img = obj.val().img;
-  date = new Date(obj.val().date);
-  link = obj.val().link;
-
-  summary = obj.val().summary;
+function render(data){
+  obj = data
+  key = (data.key);
+  keys.push(data.key);
+  last =data.val().date;
+  headline = data.val().headline;
+  img = data.val().img;
+  date = new Date(data.val().date);
+  link = data.val().link;
+  summary = data.val().summary;
 
   const template = `
-  <div class="card mb-4" id=${i}>
+  <div class="card mb-4 border-primary" id=${i}>
     <img class="card-img-top" src="${img}" alt="Card image cap"/>
   <div class="card-body"> <h4 class="card-title">${headline}</h4>
   <p class="card-text">${summary}<br/>  </p></div>
   <div class ='text-center'>
     <a class="btn btn-link" href=${link}>Source</a>
-    <a href="#" class="btn btn-outline-primary mb-2"> Comments</a>
+    <div class="btn btn-outline-primary mb-2" value== ${key}> Comments</div>
   </div>
   <div class="card-footer text-muted">Posted: ${date}</div></div></div>`
 
+  
+  
   if (headline != null) {
     if (i == 0) {
       $("#posts").before(template);
+      $('#'+i).bind("click", function(){
+        getComments(key);
+      });
+      
     }
     let target = i - 1
     if (i > 0) {
-      $("#" + target).before(template);
-    }
+      $("#posts").before(template)
+
+      $('#'+i).bind("click", function(){
+        getComments(key);
+
+    });
+  }
+  console.log(i)
     i = i + 1;
+    
   }
 }
 
-// make the array.push an event so each time push is called we render a post
-const eventifiy = (arr, callback) => {
-  arr.push = (e) => {
-    Array.prototype.push.call(arr, e);
-    callback(arr);
-  };
-};
 
 class mainpageHandler {
-  // signout
-  signOut() {
-    console.log("signing out")
-    firebase.auth().signOut().then(() => {
-      console.log('Successfully Signed out');
-    }).catch(function (error) {
-      return res.status(400).json(error);
-    });
-  }
-  // gets all posts from db and then pushes them to results array
-  getAllPosts() {
+
+  getLastTwentyPosts() {
     let query = database.ref('news/');
-    eventifiy(results, (newArray) => {
-      showPost();
-    });
-
-    query.orderByChild("date").on("child_added", function (data) {
-
-      results.push(data);
+    query.orderByChild("date").limitToFirst(20).on("child_added", function (data) {
+      if (!(keys.includes(data.key))  ){
+      render(data);
+      }
     });
   }
-}
+
+
+  getNextTwenty(){
+   
+    let query = database.ref('news/');
+    console.log('query');
+    query.orderByChild("date").limitToFirst(20).startAt(last).on("child_added", function (data) {
+
+      console.log((keys[(keys.length)-1]))
+      console.log(data.key)
+      if ((data.key)!=keys[(keys.length)-1])  {
+      render(data)
+      }
+      if (data.key == keys[(keys.length)-1] ){
+        console.log("dupilacte found")
+      }
+      
+    });
+
+  }
+
+  }
+  
+
+  $(window).scroll(function () { 
+    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+       handler.getNextTwenty();
+    }
+  });
 
 handler = new mainpageHandler();
 // main call
 window.onload = () => {
   //main triger
-  handler.getAllPosts();
+  handler.getLastTwentyPosts();
   //testing comment function
-  getComments('0')
+  
+    
+    
+  
+  
+ 
+ 
 }
+
+
+
+
+
+  
+     
+   
+  
+
 
 
 
