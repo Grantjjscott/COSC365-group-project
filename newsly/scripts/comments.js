@@ -30,6 +30,9 @@ const postComment = (e) => {
     });
   }
 
+  // Call add comment passing in the data obtained from the form element.
+  addComment(date, text, user);
+
   document.getElementById('comment').value = '';
 }
 
