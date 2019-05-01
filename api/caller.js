@@ -1,3 +1,5 @@
+
+var i =0;
 var headlines = new Array();
 class fireStarter {
     start() {
@@ -10,8 +12,15 @@ class fireStarter {
         messagingSenderId: "218187384395"
       };
       firebase.initializeApp(config);
-  
+     
+
       console.log("loaded");
+
+       var database = firebase.database();
+      let query = database.ref('news/');
+      query.limitToLast(1).on("value", function (data) {
+        i= data.val().id;
+      });
     }
   }
 
@@ -39,16 +48,17 @@ class fireStarter {
    }
    else{
     headlines.push(article.title);
-    console.log("yeet")
+    console.log("yeet");
     let postData = {
       headline: article.title,
       date: article.publishedAt,
       img: article.urlToImage,
       link: article.url,
       summary: article.description,
+      id: i,
     };
     let query = database.ref('news/');
-   
+    i--;
     
   
   

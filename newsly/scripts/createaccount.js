@@ -73,5 +73,6 @@ window.onload = function () {
   email.addEventListener("change", function () { userName = email.value; })
   password.addEventListener("change", function () { pw = password.value; console.log(pw) })
   newAccount.addEventListener('click', function () { handler.NewUser(userName, pw) })
+
 }
 
