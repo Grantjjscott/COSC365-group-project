@@ -27,8 +27,7 @@ class fireStarter {
       } else {
         let usermenu = `
         <a class="dropdown-item"  id="option1"href="login.html">Login</a>
-        <a class="dropdown-item"  id ="option2"href="createaccount.html">Sign Up</a>
-        `
+        <a class="dropdown-item"  id ="option2"href="createaccount.html">Sign Up</a>`
         $('#user-menu').append(usermenu)
       }
       
