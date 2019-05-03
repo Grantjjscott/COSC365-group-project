@@ -33,7 +33,12 @@ class NewAccountHandler {
     });
   }
 
-  NewUser = (email, password) => {
+  NewUser = (email, password, confirmPassword) => {
+    if(password !== confirmPassword) {
+        alert("Passwords do not match.");
+        location.reload();
+    }
+
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(function (error) {
         let errorCode = error.code;
@@ -73,5 +78,6 @@ window.onload = function () {
   email.addEventListener("change", function () { userName = email.value; })
   password.addEventListener("change", function () { pw = password.value; console.log(pw) })
   newAccount.addEventListener('click', function () { handler.NewUser(userName, pw) })
+
 }
 
