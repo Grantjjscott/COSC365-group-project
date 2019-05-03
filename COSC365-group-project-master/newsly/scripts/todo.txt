@@ -1,7 +1,0 @@
-things to do
-- method that takes queries and makes an array of objects from it
-- method that reads all comments and wirtes them to page
-- method to place articles on index page
-- add comments to article
-- create actual articles for testing
-- write comment.html

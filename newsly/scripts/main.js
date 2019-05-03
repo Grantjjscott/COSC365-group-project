@@ -5,8 +5,9 @@ let i = 0;
 let last = '';
 
 
-function gotoComments(id) {
-  console.log(id);
+function gotoComments(val) {
+  id = (val.id);
+
   let url = `post.html?id=${keys[id]}`;
   window.location = url;
 
@@ -49,7 +50,7 @@ function renderPost(data) {
               <textarea id='comment' class="form-control" rows="3"
                 placeholder='Write your comment here . . .'></textarea>
             </div>
-            <button type="submit" value = ${i} class="btn btn-primary">Submit</button>
+            <button type="submit" value = ${i} class="btn btn-primary" onclick =gotoComments(this.value) >Submit</button>
           </form>
         </div>
       </div>
@@ -106,7 +107,7 @@ function render(data) {
     </div>
     <div class ='text-center'>
       <a class="btn btn-link" href=${link}>Source</a>
-      <div class="btn btn-outline-primary mb-2" id="${i}b" onclick="gotoComments(${this.id})" value=${key}>Comments</div>
+      <div class="btn btn-outline-primary mb-2" id="${i}" value= "${i}" onclick="gotoComments(this)" value=${key}>Comments</div>
     </div>
     <div class="card-footer text-muted">Posted: ${date}</div>
   </div>`
@@ -114,21 +115,15 @@ function render(data) {
   if (headline != null) {
     if (i == 0) {
       $("#posts").before(template);
-      $('#' + i).bind("click", function () {
-        gotoComments(i);
-      });
+      
     }
 
     let target = i - 1
     if (i > 0) {
       $("#posts").before(template)
-      $('#' + i).bind("click", function () {
-        console.log(i);
-        console.log(key);
-        gotoComments(i);
-      });
+     
     }
-    console.log(i)
+    
     i += 1;
   }
 }

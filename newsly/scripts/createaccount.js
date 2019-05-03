@@ -33,7 +33,11 @@ class NewAccountHandler {
     });
   }
 
-  NewUser = (email, password) => {
+  NewUser = (email, password, confirmPassword) => {
+    if(password !== confirmPassword) {
+        alert("Passwords do not match.");
+        location.reload();
+    }
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(function (error) {
@@ -41,23 +45,19 @@ class NewAccountHandler {
         let errorMessage = error.message;
 
         if (errorCode == 'auth/weak-password') {
-          //console.log('The password is too weak.');
-          alert('The password is too weak.');
+          console.log('The password is too weak.')
           return ('The password is too weak.');
         }
 
         if (errorCode == 'auth/email-already-in-use') {
-          //console.log('Email is already in use');
-          alert('Email is already in use');
+          console.log('Email is already in use');
           return ('Email is already in use');
         }
 
         if (errorCode === 'auth/invalid-email') {
-          //console.log('invalid email.');
-          alert('invalid email.');
+          console.log('invalid email.');
           return ('invalid email.');
         }
-
 
         console.log(error);
       });
