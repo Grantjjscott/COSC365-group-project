@@ -1,5 +1,5 @@
 
-var i =0;
+var i =-56;
 var headlines = new Array();
 class fireStarter {
     start() {
@@ -135,7 +135,9 @@ class fireStarter {
 
     starter = new fireStarter();
     starter.start();
+    window.onload = ()=>{
     //MainCall();
     CatCall('Science');
     CatCall('Sports');
     CatCall('General');
+    };
