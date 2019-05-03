@@ -6,7 +6,8 @@ let last = '';
 
 // queries feedback branch for matching key
 function getComments(postKey) {
-  let query = database.ref('Feedback').child(postKey)
+  console.log(postKey);
+  let query = database.ref(`Feedback/${postKey}`).child(postKey)
     .on("value", function (data) {
       console.log(data.key);
       //console.log(data.key.headline);
@@ -36,28 +37,28 @@ function render(data) {
     </div>
     <div class ='text-center'>
       <a class="btn btn-link" href=${link}>Source</a>
-      <div class="btn btn-outline-primary mb-2" value=${key}>Comments</div>
+      <div class="btn btn-outline-primary mb-2" onclick="getComments(${key})" value=${key}>Comments</div>
     </div>
     <div class="card-footer text-muted">Posted: ${date}</div>
   </div>`
-  //console.log(i);
 
+  // IF I COMMENT THESE OUT THE ABOVE GET COMMENTS FREAKS. THIS HAS TO BE THE ID. DB NEEDS CHANGED
   if (headline != null) {
     if (i == 0) {
       $("#posts").before(template);
-      $('#' + i).bind("click", function () {
-        getComments(key);
-      });
+      // $('#' + i).bind("click", function () {
+      //   getComments(key);
+      // });
     }
 
     let target = i - 1
     if (i > 0) {
       $("#posts").before(template)
-      $('#' + i).bind("click", function () {
-        //console.log(i);
-        //console.log(key);
-        getComments(key);
-      });
+      // $('#' + i).bind("click", function () {
+      //   //console.log(i);
+      //   //console.log(key);
+      //   getComments(key);
+      // });
     }
     console.log(i)
     i += 1;
