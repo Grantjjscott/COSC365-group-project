@@ -46,22 +46,14 @@ var i = 0;
 let objects = new Array();
 var last = '';
 
-// queries feedback branch for matching key
-function getComments(postKey) {
-  let query = database.ref('Feedback').child(postKey)
-    .on("value", function (data) {
-      // console.log(data.val());
-      // console.log(data.key);
-    });
-}
-
 function render(data) {
   key = (data.key);
+  console.log(key);
   keys.push(data.key);
   //console.log(keys);
   objects.push(data);
-  console.log(data);
-  console.log(objects);
+  //console.log(data);
+  //console.log(objects);
   last = data.val().date;
   headline = data.val().headline;
   img = data.val().img;
@@ -81,7 +73,9 @@ function render(data) {
     </div>
     <div class='text-center'>
       <a class="btn btn-link" href=${link}>Source</a>
-      <button class="btn btn-outline-primary mb-2" value=${key}>Comments</button>
+      <form action="post.html">
+      <button type = "submit" class="btn btn-outline-primary mb-2" onclick = "detailedPost(${key})" value=${key} >Go To Post</button>
+      </form>
     </div>
     <div class="card-footer text-muted">Posted: ${date}</div>
   </div>`
@@ -102,7 +96,7 @@ function render(data) {
       });
     }
 
-    console.log(i)
+    //console.log(i)
     i = i + 1;
   }
 }
@@ -119,17 +113,25 @@ class mainpageHandler {
     });
   }
 
+  // It can't find the postKey im passing but is able to find it up in the render so I have 
+  // no idea how to get the specific news reference.
+  detailedPost(postKey) {
+    console.log('detailedPost Called');
+    //console.log(postKey);
+    let query = database.ref(`news/${postKey}`);
+    query.on("value", function (data) {
+      render(data);
+      //console.log(data.id[0]);
+      console.log(data.key);
+    });
+  }
+
   getNextTwenty() {
     let query = database.ref('news/');
-    console.log('query');
     query.orderByChild("date").limitToFirst(20).startAt(last).on("child_added", function (data) {
-
-      console.log((keys[(keys.length) - 1]))
-      console.log(data.key)
       if (keys.includes(data.key) || sources.includes(data.val().img)) {
-        console.log("dupilacte found")
-      }
-      else {
+        console.log("duplicate found")
+      } else {
         render(data);
       }
     });
@@ -149,18 +151,5 @@ window.onload = () => {
   handler.getLastTwentyPosts();
 
   //testing comment function
+  handler.detailedPost();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
