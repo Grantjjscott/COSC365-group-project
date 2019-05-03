@@ -79,3 +79,12 @@ getAllPosts() {
  //eventifiy(results, (newArray) => {
       //showPost();
     //});
+
+    function getComments(postKey) {
+  let query = database.ref(`Feedback/${postKey}`).child(postKey)
+    .on("value", function (data) {
+      console.log(data.key);
+      console.log(key);
+      console.log(data.val());
+    });
+}

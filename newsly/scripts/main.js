@@ -5,20 +5,11 @@ let i = 0;
 let last = '';
 
 
-function gotoComments(key){
-  
-  let url = "post.html?id=LdoE0qbEteoX_639qHO" 
-  window.location = url; 
+function gotoComments(key) {
 
-}
-// queries feedback branch for matching key
-function getComments(postKey) {
-  let query = database.ref(`Feedback/${postKey}`).child(postKey)
-    .on("value", function (data) {
-      console.log(data.key);
-      console.log(key);
-      console.log(data.val());
-    });
+  let url = `post.html?id=${key}`;
+  window.location = url;
+
 }
 
 function renderPost(data) {
@@ -73,17 +64,11 @@ function renderPost(data) {
   $("#postPage").before(template);
   if (headline != null) {
     if (i == 0) {
-<<<<<<< Updated upstream
-      $('#' + i).bind("click", function () {
-        getComments(key);
-      });
-=======
 
       // $('#' + i).bind("click", function () {
-      // thisKey=$('#'+i).value  
+      // thisKey=$('#'+i).value
       //getComments(Key);
       // });
->>>>>>> Stashed changes
     }
 
     let target = i - 1
@@ -130,24 +115,17 @@ function render(data) {
     if (i == 0) {
       $("#posts").before(template);
       $('#' + i).bind("click", function () {
-        getComments(key);
+        gotoComments(key);
       });
     }
 
     let target = i - 1
     if (i > 0) {
       $("#posts").before(template)
-<<<<<<< Updated upstream
       $('#' + i).bind("click", function () {
-        //console.log(i);
-        //console.log(key);
-        getComments(key);
-=======
-       $('#' + i).bind("click", function () {
-         console.log(i);
-      console.log(key);
-      gotoComments(key);
->>>>>>> Stashed changes
+        console.log(i);
+        console.log(key);
+        gotoComments(key);
       });
     }
     console.log(i)
@@ -192,9 +170,9 @@ class mainpageHandler {
 
 }
 
-$(window).scroll(function () { 
+$(window).scroll(function () {
   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500) {
-     handler.getNextTwenty()
+    handler.getNextTwenty()
   }
 });
 
@@ -206,17 +184,3 @@ window.onload = () => {
   handler.getPost();
   //testing comment function
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
