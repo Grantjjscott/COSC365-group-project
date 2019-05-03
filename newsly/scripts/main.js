@@ -5,9 +5,9 @@ let i = 0;
 let last = '';
 
 
-function gotoComments(key) {
-
-  let url = `post.html?id=${key}`;
+function gotoComments(id) {
+  console.log(id);
+  let url = `post.html?id=${keys[id]}`;
   window.location = url;
 
 }
@@ -106,7 +106,7 @@ function render(data) {
     </div>
     <div class ='text-center'>
       <a class="btn btn-link" href=${link}>Source</a>
-      <div class="btn btn-outline-primary mb-2" id="${i}b" onclick="getComments(${i})" value=${key}>Comments</div>
+      <div class="btn btn-outline-primary mb-2" id="${i}b" onclick="gotoComments(${this.id})" value=${key}>Comments</div>
     </div>
     <div class="card-footer text-muted">Posted: ${date}</div>
   </div>`
@@ -115,7 +115,7 @@ function render(data) {
     if (i == 0) {
       $("#posts").before(template);
       $('#' + i).bind("click", function () {
-        gotoComments(key);
+        gotoComments(i);
       });
     }
 
@@ -125,7 +125,7 @@ function render(data) {
       $('#' + i).bind("click", function () {
         console.log(i);
         console.log(key);
-        gotoComments(key);
+        gotoComments(i);
       });
     }
     console.log(i)
