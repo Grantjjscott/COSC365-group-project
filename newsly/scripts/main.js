@@ -8,7 +8,8 @@ let last = '';
 function getComments(postKey) {
   let query = database.ref('Feedback').child(postKey)
     .on("value", function (data) {
-      // console.log(data.key);
+      console.log(data.key);
+      //console.log(data.key.headline);
       console.log(data.val());
     });
 }
@@ -29,19 +30,22 @@ function render(data) {
   const template = `
   <div class="card mb-4 border-primary" id=${i}>
     <img class="card-img-top" src="${img}" alt="Card image cap"/>
-  <div class="card-body"> <h4 class="card-title">${headline}</h4>
-  <p class="card-text">${summary}<br/>  </p></div>
-  <div class ='text-center'>
-    <a class="btn btn-link" href=${link}>Source</a>
-    <div class="btn btn-outline-primary mb-2" value== ${key}> Comments</div>
-  </div>
-  <div class="card-footer text-muted">Posted: ${date}</div></div></div>`
+    <div class="card-body"> 
+      <h4 class="card-title">${headline}</h4>
+      <p class="card-text">${summary}<br/></p>
+    </div>
+    <div class ='text-center'>
+      <a class="btn btn-link" href=${link}>Source</a>
+      <div class="btn btn-outline-primary mb-2" value=${key}>Comments</div>
+    </div>
+    <div class="card-footer text-muted">Posted: ${date}</div>
+  </div>`
+  //console.log(i);
 
   if (headline != null) {
     if (i == 0) {
       $("#posts").before(template);
       $('#' + i).bind("click", function () {
-        //console.log(key);
         getComments(key);
       });
     }
@@ -50,11 +54,13 @@ function render(data) {
     if (i > 0) {
       $("#posts").before(template)
       $('#' + i).bind("click", function () {
+        //console.log(i);
+        //console.log(key);
         getComments(key);
       });
     }
     console.log(i)
-    i = i + 1;
+    i += 1;
   }
 }
 
