@@ -6,7 +6,6 @@ let last = '';
 
 // queries feedback branch for matching key
 function getComments(postKey) {
-  console.log(postKey);
   let query = database.ref(`Feedback/${postKey}`).child(postKey)
     .on("value", function (data) {
       console.log(data.key);
@@ -18,7 +17,6 @@ function getComments(postKey) {
 function renderPost(data) {
   obj = data
   key = (data.key);
-  console.log(key);
   keys.push(data.key);
   last = data.val().id
   headline = data.val().headline;
@@ -64,23 +62,22 @@ function renderPost(data) {
     </div>
   </div>
   `
+
   $("#postPage").before(template);
   if (headline != null) {
     if (i == 0) {
-
-      // $('#' + i).bind("click", function () {
-      //   getComments(key);
-      // });
+      $('#' + i).bind("click", function () {
+        getComments(key);
+      });
     }
 
     let target = i - 1
     if (i > 0) {
       $("#postPage").before(template)
-      // $('#' + i).bind("click", function () {
-      //   //console.log(i);
-      //   //console.log(key);
-      //   getComments(key);
-      // });
+      $('#' + i).bind("click", function () {
+        //console.log(key);
+        getComments(key);
+      });
     }
     console.log(i)
     i += 1;
@@ -109,28 +106,27 @@ function render(data) {
     </div>
     <div class ='text-center'>
       <a class="btn btn-link" href=${link}>Source</a>
-      <div class="btn btn-outline-primary mb-2" onclick="getComments(${i})" value=${key}>Comments</div>
+      <div class="btn btn-outline-primary mb-2" id="${i}b" onclick="getComments(${i})" value=${key}>Comments</div>
     </div>
     <div class="card-footer text-muted">Posted: ${date}</div>
   </div>`
 
-  // IF I COMMENT THESE OUT THE ABOVE GET COMMENTS FREAKS. THIS HAS TO BE THE ID. DB NEEDS CHANGED
   if (headline != null) {
     if (i == 0) {
       $("#posts").before(template);
-      // $('#' + i).bind("click", function () {
-      //   getComments(key);
-      // });
+      $('#' + i).bind("click", function () {
+        getComments(key);
+      });
     }
 
     let target = i - 1
     if (i > 0) {
       $("#posts").before(template)
-      // $('#' + i).bind("click", function () {
-      //   //console.log(i);
-      //   //console.log(key);
-      //   getComments(key);
-      // });
+      $('#' + i).bind("click", function () {
+        //console.log(i);
+        //console.log(key);
+        getComments(key);
+      });
     }
     console.log(i)
     i += 1;
@@ -166,10 +162,9 @@ class mainpageHandler {
   getPost() {
     let query = database.ref('news/');
     query.orderByChild("id").limitToFirst(20).on("child_added", function (data) {
-      // THIS MAKES IT NOT LOAD
-      //if (!(keys.includes(data.key))) {
-      renderPost(data);
-      // }
+      if (!(keys.includes(data.key))) {
+        renderPost(data);
+      }
     });
   }
 
