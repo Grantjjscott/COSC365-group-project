@@ -37,7 +37,6 @@ class NewAccountHandler {
     if(document.getElementById("password").value != document.getElementById("confirmPassword").value)
     {
       alert('passwords do not match');
-      location.reload();
     }
     else {
     firebase.auth().createUserWithEmailAndPassword(email, password)
