@@ -34,7 +34,11 @@ class NewAccountHandler {
   }
 
   NewUser = (email, password) => {
-
+    if(document.getElementById("password").value != document.getElementById("confirmPassword").value)
+    {
+      alert('passwords do not match');
+    }
+    else {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(function (error) {
         let errorCode = error.code;
@@ -61,6 +65,8 @@ class NewAccountHandler {
 
         console.log(error);
       });
+      window.location.href = ("../client/login.html");
+  }
   }
 }
 
