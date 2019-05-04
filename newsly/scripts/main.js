@@ -5,84 +5,85 @@ let i = 0;
 let last = '';
 
 
-function gotoComments(id) {
-  console.log(id);
+function gotoComments(val) {
+  id = (val.id);
+
   let url = `post.html?id=${keys[id]}`;
   window.location = url;
 
 }
 
-function renderPost(data) {
-  obj = data
-  key = (data.key);
-  keys.push(data.key);
-  last = data.val().id
-  headline = data.val().headline;
-  img = data.val().img;
-  sources.push(img)
-  date = new Date(data.val().date);
-  link = data.val().link;
-  summary = data.val().summary;
+// function renderPost(data) {
+//   obj = data
+//   key = (data.key);
+//   keys.push(data.key);
+//   last = data.val().id
+//   headline = data.val().headline;
+//   img = data.val().img;
+//   sources.push(img)
+//   date = new Date(data.val().date);
+//   link = data.val().link;
+//   summary = data.val().summary;
 
-  const template = `
-  <div class="container" id="post">
-    <div class="text-center">
-      <h1 class="mt-4">${headline}</h1>
-      <hr>
-      <p>Posted on ${date}</p>
-      <hr>
-      <img class="img-fluid rounded" src="${img}" alt="">
-      <hr>
-      <p class="lead">${summary}</p>
-      <hr>
-      
+//   const template = `
+//   <div class="container" id="post">
+//     <div class="text-center">
+//       <h1 class="mt-4">${headline}</h1>
+//       <hr>
+//       <p>Posted on ${date}</p>
+//       <hr>
+//       <img class="img-fluid rounded" src="${img}" alt="">
+//       <hr>
+//       <p class="lead">${summary}</p>
+//       <hr>
 
-      <!-- Comments Form -->
-      <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
-        <div class="card-body">
-          <form>
-            <div class='form-group mb-4'>
-              <input class='form-control' type="text" id="name" placeholder="Name" />
-            </div>
-            <div class="form-group">
-              <textarea id='comment' class="form-control" rows="3"
-                placeholder='Write your comment here . . .'></textarea>
-            </div>
-            <button type="submit" value = ${i} class="btn btn-primary">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
 
-    <!-- Single Comment -->
-    <div id='user-comment'>
-    </div>
-  </div>
-  `
+//       <!-- Comments Form -->
+//       <div class="card my-4">
+//         <h5 class="card-header">Leave a Comment:</h5>
+//         <div class="card-body">
+//           <form>
+//             <div class='form-group mb-4'>
+//               <input class='form-control' type="text" id="name" placeholder="Name" />
+//             </div>
+//             <div class="form-group">
+//               <textarea id='comment' class="form-control" rows="3"
+//                 placeholder='Write your comment here . . .'></textarea>
+//             </div>
+//             <button type="submit" value = ${i} class="btn btn-primary" onclick =gotoComments(this.value) >Submit</button>
+//           </form>
+//         </div>
+//       </div>
+//     </div>
 
-  $("#postPage").before(template);
-  if (headline != null) {
-    if (i == 0) {
+//     <!-- Single Comment -->
+//     <div id='user-comment'>
+//     </div>
+//   </div>
+//   `
 
-      // $('#' + i).bind("click", function () {
-      // thisKey=$('#'+i).value
-      //getComments(Key);
-      // });
-    }
+//   $("#postPage").before(template);
+//   if (headline != null) {
+//     if (i == 0) {
 
-    let target = i - 1
-    if (i > 0) {
-      $("#postPage").before(template)
-      $('#' + i).bind("click", function () {
-        //console.log(key);
-        getComments(key);
-      });
-    }
-    console.log(i)
-    i += 1;
-  }
-}
+//       // $('#' + i).bind("click", function () {
+//       // thisKey=$('#'+i).value
+//       //getComments(Key);
+//       // });
+//     }
+
+//     let target = i - 1
+//     if (i > 0) {
+//       $("#postPage").before(template)
+//       $('#' + i).bind("click", function () {
+//         //console.log(key);
+//         getComments(key);
+//       });
+//     }
+//     console.log(i)
+//     i += 1;
+//   }
+// }
 
 function render(data) {
   obj = data
@@ -106,7 +107,7 @@ function render(data) {
     </div>
     <div class ='text-center'>
       <a class="btn btn-link" href=${link}>Source</a>
-      <div class="btn btn-outline-primary mb-2" id="${i}b" onclick="gotoComments(${this.id})" value=${key}>Comments</div>
+      <div class="btn btn-outline-primary mb-2" id="${i}" value= "${i}" onclick="gotoComments(this)" value=${key}>Comments</div>
     </div>
     <div class="card-footer text-muted">Posted: ${date}</div>
   </div>`
@@ -114,21 +115,15 @@ function render(data) {
   if (headline != null) {
     if (i == 0) {
       $("#posts").before(template);
-      $('#' + i).bind("click", function () {
-        gotoComments(i);
-      });
+
     }
 
     let target = i - 1
     if (i > 0) {
       $("#posts").before(template)
-      $('#' + i).bind("click", function () {
-        console.log(i);
-        console.log(key);
-        gotoComments(i);
-      });
+
     }
-    console.log(i)
+
     i += 1;
   }
 }
