@@ -33,21 +33,13 @@ class NewAccountHandler {
     });
   }
 
-<<<<<<< HEAD
   NewUser = (email, password) => {
     if(document.getElementById("password").value != document.getElementById("confirmPassword").value)
     {
       alert('passwords do not match');
+      location.reload();
     }
     else {
-=======
-  NewUser = (email, password, confirmPassword) => {
-    if(password !== confirmPassword) {
-        alert("Passwords do not match.");
-        location.reload();
-    }
-
->>>>>>> 3cc3201394f71863919beb8e47f3e707099e4a39
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(function (error) {
         let errorCode = error.code;
