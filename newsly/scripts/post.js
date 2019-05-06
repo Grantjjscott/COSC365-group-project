@@ -22,9 +22,6 @@ let commentQuery = database.ref('Feedback/').child(id)
   });
 
 function getComments(data) {
-  console.log(data.val().comments.length);
-  console.log(data)
-
   for (let i = 0; i < data.val().comments.length; i++) {
     let user = data.val().comments[i].comment.user;
     let text = data.val().comments[i].comment.text;
@@ -69,7 +66,7 @@ function renderPost(data) {
         <div class="card my-4">
           <h5 class="card-header">Leave a Comment:</h5>
           <div class="card-body">
-            <form onsubmit="dummy()">
+            <form>
               <div class='form-group mb-4'>
                 <input class='form-control' type="text" id="name" placeholder="Name" />
               </div>
@@ -77,7 +74,7 @@ function renderPost(data) {
                 <textarea id='comment' class="form-control" rows="3"
                   placeholder='Write your comment here . . .'></textarea>
               </div>
-              <button type="submit" class="btn btn-primary" onclick =gotoComments(this.value) >Submit</button>
+              <button type="submit" class="btn btn-primary" id='button'>Submit</button>
             </form>
           </div>
         </div>
@@ -87,35 +84,61 @@ function renderPost(data) {
   $("#postPage").before(template);
 }
 
-const dummy = (e) => {
-  e.preventDefault();
-  let userName = document.getElementById('name').value;
-  let textArea = docuemnt.getElementById('comment').value;
+// const dummy = (e) => {
+//   e.preventDefault();
+//   let userName = document.getElementById('name').value;
+//   let textArea = docuemnt.getElementById('comment').value;
 
-  console.log(userName);
-  console.log(textArea);
-}
+//   console.log(userName);
+//   console.log(textArea);
+// }
 
 
-function addComments(key) {
-  let postData = {
-    "comments": [
-      {
-        "comment": {
-          "user": 'Zac',
-          "date": '02/13/1998',
-          "text": ''
-        }
-      }
-    ]
-  }
+// function addComments(key) {
+//   let postData = {
+//     "comments": [
+//       {
+//         "comment": {
+//           "user": 'Zac',
+//           "date": '02/13/1998',
+//           "text": ''
+//         }
+//       }
+//     ]
+//   }
 
+//   let updates = {};
+
+//   updates['/Feedback/' + key] = postData;
+//   firebase.database().ref().push(updates);
+// }
+
+function writeNewPost(key, username, body) {
+  // A post entry.
+  const postData = {
+    user: username,
+    text: body,
+    date: new Date()
+  };
+
+  // Get a key for a new Post.
+  let newPostKey = firebase.database().ref().child('Feedback').push().key;
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
   let updates = {};
+  updates['/Feedback/' + key + '/comments/'] = postData;
+  updates[newPostKey] = postData;
 
-  updates['/Feedback/' + key] = postData;
-  firebase.database().ref().push(updates);
+  return firebase.database().ref().update(updates);
 }
 
 window.onload = () => {
-  addComments(id);
+  let userName = document.getElementById('name').value;
+  let textArea = document.getElementById('comment').value;
+  let button = document.getElementById('button');
+  button.addEventListener("click", function () { writeNewPost(userName, textArea, key) });
+  userName.addEventListener("change", function () { userName = userName.value; });
+  textArea.addEventListener("change", function () { textArea = textArea.value; });
+
+
 }
