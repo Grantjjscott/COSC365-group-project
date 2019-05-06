@@ -23,9 +23,9 @@ let commentQuery = database.ref('Feedback/').child(id)
 
 function getComments(data) {
   for (let i = 0; i < data.val().comments.length; i++) {
-    let user = data.val().comments[i].user;
-    let text = data.val().comments[i].text;
-    let date = data.val().comments[i].date;
+    let user = data.val().comments[i].comment.user;
+    let text = data.val().comments[i].comment.text;
+    let date = data.val().comments[i].comment.date;
     const stub = `
     <div class="card">
       <div class="card-header">
@@ -88,37 +88,31 @@ function renderPost(data) {
   userName.addEventListener("change", function () { userName = userName.value; });
   textArea.addEventListener("change", function () { textArea = textArea.value; });
   button.addEventListener("click", function () { writeNewPost(userName, textArea, key) });
+  console.log('first key', key);
 }
 
 
 function writeNewPost(userName, body, key) {
-  console.log(key);
+  console.log('second should be same', key);
   let query = firebase.database().ref('/Feedback/' + id + '/');
   let newChildRef = query.push();
   console.log(newChildRef.key);
   // A post entry.
   // Get a key for a new Post.
   //let newPostKey = firebase.database().ref().child('Feedback/' + id + '/').push().key;
+  const date = new Date();
+  console.log(date);
 
   const postData = {
     "comments": [
       {
         "comment": {
           "user": userName,
-          "text": body,
-          "date": new Date()
+          "text": body
         }
       }
     ]
   };
 
-  newChildRef.set(postData);
-
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  // let updates = {};
-  // updates['/Feedback/' + key + '/comments/'] = postData;
-  // console.log(postData);
-  // updates[newPostKey] = postData;
-
-  // return firebase.database().ref().update(updates);
+  query.set(postData);
 }
