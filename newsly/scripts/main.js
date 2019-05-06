@@ -88,7 +88,7 @@ function gotoComments(val) {
 function render(data) {
   obj = data
   key = (data.key);
-  console.log(key);
+  
   keys.push(data.key);
   last = data.val().id
   headline = data.val().headline;
@@ -99,34 +99,33 @@ function render(data) {
   summary = data.val().summary;
 
   const template = `
-  <div class="card mb-4 border-primary" id=${i}>
+  <div class=" card  shadow m-4 " id=${i}>
     <img class="card-img-top" src="${img}" alt="Card image cap"/>
     <div class="card-body"> 
       <h4 class="card-title">${headline}</h4>
-      <p class="card-text">${summary}<br/></p>
+      <p class=" card-text">${summary}<br/></p>
     </div>
     <div class ='text-center'>
       <a class="btn btn-link" href=${link}>Source</a>
       <div class="btn btn-outline-primary mb-2" id="${i}" value= "${i}" onclick="gotoComments(this)" value=${key}>Comments</div>
     </div>
-    <div class="card-footer text-muted">Posted: ${date}</div>
+    <div class="card-footer text-muted">Published: ${date}</div>
   </div>`
 
-  if (headline != null) {
-    if (i == 0) {
-      $("#posts").before(template);
-
-    }
-
-    let target = i - 1
-    if (i > 0) {
-      $("#posts").before(template)
-
-    }
-
-    i += 1;
+  if((i%2)== 0){
+  $('#posts').before('<div class= card-deck id = '+ parseInt(i/2)+'>')
   }
-}
+  if (headline != null) {
+   
+    let target = i - 1
+  
+      $("#" +parseInt(i/2) + ".card-deck ").append(template)
+
+    }
+
+    i++;
+  }
+
 
 class mainpageHandler {
 
@@ -141,11 +140,10 @@ class mainpageHandler {
 
   getNextTwenty() {
     let query = database.ref('news/');
-    console.log('query');
+   
     query.orderByChild("id").limitToFirst(20).startAt(last).on("child_added", function (data) {
 
-      console.log((keys[(keys.length) - 1]))
-      console.log(data.key)
+      
       if (keys.includes(data.key) || sources.includes(data.val().img)) {
         console.log("dupliacte found")
       } else {
@@ -166,7 +164,7 @@ class mainpageHandler {
 }
 
 $(window).scroll(function () {
-  if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500) {
+  if ($(window).scrollTop() >= $(document).height() - $(window).height() - 200) {
     handler.getNextTwenty()
   }
 });

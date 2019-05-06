@@ -1,4 +1,8 @@
 
+body{
+  background-image:  url("../img/newsbg.jpg");
+ 
+}
 
 #card-buttons{
   align-content: center;
@@ -7,10 +11,19 @@
 
 .container {
   padding-top: 60px;
-
+  
+}
+#cardcontainer{
+background-color:rgb(220, 220, 220, 0.5);
 }
 
-@media (min-width: 34em) {
+.card-image-top{
+  width: 500;
+  height: 300;
+}
+
+
+@media (min-width: 50em) {
   .card-columns {
       -webkit-column-count: 1;
       -moz-column-count: 1;
@@ -18,7 +31,7 @@
   }
 }
 
-@media (min-width: 48em) {
+@media (min-width: 70em) {
   .card-columns {
       -webkit-column-count: 2;
       -moz-column-count: 2;
@@ -26,21 +39,6 @@
   }
 }
 
-@media (min-width: 62em) {
-  .card-columns {
-      -webkit-column-count: 2;
-      -moz-column-count: 2;
-      column-count: 2;
-  }
-}
-
-@media (min-width: 75em) {
-  .card-columns {
-      -webkit-column-count: 3;
-      -moz-column-count: 3;
-      column-count: 3;
-  }
-}
 
 
 
