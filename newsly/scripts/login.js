@@ -5,7 +5,7 @@ class LoginHandler {
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
       let errorCode = error.code;
       let errorMessage = error.message;
-      console.log(errorCode);
+    
 
       if (errorCode === 'auth/wrong-password') {
         alert('Wrong password.');
@@ -73,7 +73,6 @@ window.onload = function () {
   // stores the data
   let userName = document.getElementById("email").value;;
   let pw = document.getElementById("password").value;
-
   // create element reference
   let email = document.getElementById("email")
   let password = document.getElementById("password");
@@ -82,7 +81,4 @@ window.onload = function () {
   email.addEventListener("change", function () { userName = email.value; })
   password.addEventListener("change", function () { pw = password.value; console.log(pw) })
   login.addEventListener('click', function () { handler.Login(userName, pw) })
-
-  let signout = document.querySelector('#signout')
-  signout.addEventListener('click', function () { handler.signOut() })
 }
