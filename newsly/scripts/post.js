@@ -92,12 +92,13 @@ function renderPost(data) {
 
 
 function writeNewPost(userName, body, key) {
-  let query = firebase.database().ref();
+  console.log(key);
+  let query = firebase.database().ref('/Feedback/' + id + '/');
   let newChildRef = query.push();
   console.log(newChildRef.key);
   // A post entry.
   // Get a key for a new Post.
-  let newPostKey = firebase.database().ref().child('Feedback/' + key + '/').push().key;
+  //let newPostKey = firebase.database().ref().child('Feedback/' + id + '/').push().key;
 
   const postData = {
     "comments": [
@@ -111,7 +112,7 @@ function writeNewPost(userName, body, key) {
     ]
   };
 
-  newChildRef.set({ newPostKey: postData });
+  newChildRef.set(postData);
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
   // let updates = {};
