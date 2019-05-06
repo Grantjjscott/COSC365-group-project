@@ -18,7 +18,30 @@ let commentQuery = database.ref('Feedback/').child(id)
   .once('value')
   .then(function (data) {
     console.log(data.val().comments);
+    getComments(data);
   });
+
+function getComments(data) {
+  console.log(data.val().comments.length);
+  console.log(data)
+
+  for (let i = 0; i < data.val().comments.length; i++) {
+    let user = data.val().comments[i].comment.user;
+    let text = data.val().comments[i].comment.text;
+    let date = data.val().comments[i].comment.date;
+    const stub = `
+    <div class="card">
+      <div class="card-header">
+        ${user}
+      </div>
+      <div class="card-body">
+        <p>${text}</p>
+        <footer class="blockquote-footer">${date}</footer>
+      </div>
+    </div>`
+    $("#user-comment").before(stub);
+  }
+}
 
 function renderPost(data) {
   obj = data
@@ -90,7 +113,7 @@ function addComments(key) {
   let updates = {};
 
   updates['/Feedback/' + key] = postData;
-  fireabse.database().ref().push(updates);
+  firebase.database().ref().push(updates);
 }
 
 window.onload = () => {
