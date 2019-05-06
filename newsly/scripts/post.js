@@ -92,23 +92,32 @@ function renderPost(data) {
 
 
 function writeNewPost(userName, body, key) {
+  let query = firebase.database().ref();
+  let newChildRef = query.push();
+  console.log(newChildRef.key);
   // A post entry.
+  // Get a key for a new Post.
+  let newPostKey = firebase.database().ref().child('Feedback/' + key + '/').push().key;
+
   const postData = {
-    "comment": {
-      "user": userName,
-      "text": body,
-      "date": new Date()
-    }
+    "comments": [
+      {
+        "comment": {
+          "user": userName,
+          "text": body,
+          "date": new Date()
+        }
+      }
+    ]
   };
 
-  // Get a key for a new Post.
-  let newPostKey = firebase.database().ref().child('Feedback').push().key;
+  newChildRef.set({ newPostKey: postData });
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
-  let updates = {};
-  updates['/Feedback/' + key + '/comments/'] = postData;
-  console.log(postData);
-  updates[newPostKey] = postData;
+  // let updates = {};
+  // updates['/Feedback/' + key + '/comments/'] = postData;
+  // console.log(postData);
+  // updates[newPostKey] = postData;
 
-  return firebase.database().ref().update(updates);
+  // return firebase.database().ref().update(updates);
 }
