@@ -74,7 +74,7 @@ function renderPost(data) {
                 <textarea id='comment' class="form-control" rows="3"
                   placeholder='Write your comment here . . .'></textarea>
               </div>
-              <button type="submit" class="btn btn-primary" id='button'>Submit</button>
+              <button type="button" class="btn btn-primary" id='button'>Submit</button>
             </form>
           </div>
         </div>
@@ -82,41 +82,19 @@ function renderPost(data) {
     </div>
     `
   $("#postPage").before(template);
+  let userName = document.getElementById('name');
+  let textArea = document.getElementById('comment');
+  let button = document.getElementById('button');
+  userName.addEventListener("change", function () { userName = userName.value; });
+  textArea.addEventListener("change", function () { textArea = textArea.value; });
+  button.addEventListener("click", function () { writeNewPost(userName, textArea, key) });
 }
 
-// const dummy = (e) => {
-//   e.preventDefault();
-//   let userName = document.getElementById('name').value;
-//   let textArea = docuemnt.getElementById('comment').value;
 
-//   console.log(userName);
-//   console.log(textArea);
-// }
-
-
-// function addComments(key) {
-//   let postData = {
-//     "comments": [
-//       {
-//         "comment": {
-//           "user": 'Zac',
-//           "date": '02/13/1998',
-//           "text": ''
-//         }
-//       }
-//     ]
-//   }
-
-//   let updates = {};
-
-//   updates['/Feedback/' + key] = postData;
-//   firebase.database().ref().push(updates);
-// }
-
-function writeNewPost(key, username, body) {
+function writeNewPost(userName, body, key) {
   // A post entry.
   const postData = {
-    user: username,
+    user: userName,
     text: body,
     date: new Date()
   };
@@ -133,12 +111,4 @@ function writeNewPost(key, username, body) {
 }
 
 window.onload = () => {
-  let userName = document.getElementById('name').value;
-  let textArea = document.getElementById('comment').value;
-  let button = document.getElementById('button');
-  button.addEventListener("click", function () { writeNewPost(userName, textArea, key) });
-  userName.addEventListener("change", function () { userName = userName.value; });
-  textArea.addEventListener("change", function () { textArea = textArea.value; });
-
-
 }
