@@ -23,9 +23,9 @@ let commentQuery = database.ref('Feedback/').child(id)
 
 function getComments(data) {
   for (let i = 0; i < data.val().comments.length; i++) {
-    let user = data.val().comments[i].comment.user;
-    let text = data.val().comments[i].comment.text;
-    let date = data.val().comments[i].comment.date;
+    let user = data.val().comments[i].user;
+    let text = data.val().comments[i].text;
+    let date = data.val().comments[i].date;
     const stub = `
     <div class="card">
       <div class="card-header">
@@ -94,9 +94,11 @@ function renderPost(data) {
 function writeNewPost(userName, body, key) {
   // A post entry.
   const postData = {
-    user: userName,
-    text: body,
-    date: new Date()
+    "comment": {
+      "user": userName,
+      "text": body,
+      "date": new Date()
+    }
   };
 
   // Get a key for a new Post.
@@ -105,10 +107,8 @@ function writeNewPost(userName, body, key) {
   // Write the new post's data simultaneously in the posts list and the user's post list.
   let updates = {};
   updates['/Feedback/' + key + '/comments/'] = postData;
+  console.log(postData);
   updates[newPostKey] = postData;
 
   return firebase.database().ref().update(updates);
-}
-
-window.onload = () => {
 }
