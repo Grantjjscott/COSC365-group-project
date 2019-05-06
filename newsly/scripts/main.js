@@ -45,6 +45,9 @@ function render(data) {
     i++;
   }
 
+
+  
+
 class mainpageHandler {
 
   getLastTwentyPosts() {
