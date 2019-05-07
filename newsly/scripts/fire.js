@@ -10,35 +10,26 @@ class fireStarter {
     };
     firebase.initializeApp(config);
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         const userName = user.email;
 
-        document.querySelector('#Account').innerHTML= (userName);
+        document.querySelector('#Account').innerHTML = (userName);
 
-     
-        
         let usermenu = `
-        <button class="dropdown-item"  id ="signout" onclick='signOut()' >Sign Out</button>`
-        
-       $('#user-menu').append(usermenu)
-        
-       
+        <button class="dropdown-item"  id ="signout" onclick='signOut()'>Sign Out</button>`
+
+        $('#user-menu').append(usermenu);
       } else {
         let usermenu = `
         <a class="dropdown-item"  id="option1"href="login.html">Login</a>
         <a class="dropdown-item"  id ="option2"href="createaccount.html">Sign Up</a>`
         $('#user-menu').append(usermenu)
       }
-      
     });
-
     console.log("loaded");
-
-
   }
 }
-
 
 function signOut() {
   console.log("signing out")
@@ -53,7 +44,3 @@ function signOut() {
 starter = new fireStarter();
 starter.start();
 database = firebase.database();
-
-
-
-

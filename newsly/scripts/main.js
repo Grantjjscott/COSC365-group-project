@@ -35,18 +35,17 @@ function render(data) {
     <div class="card-footer text-muted">Published: ${date}</div>
   </div>`
 
-  if((i%2)== 0){
-  $('#posts').before('<div class= card-deck id = '+ parseInt(i/2)+'>')
+  if ((i % 2) == 0) {
+    $('#posts').before('<div class= card-deck id = ' + parseInt(i / 2) + '>')
   }
   if (headline != null) {
-      $("#" +parseInt(i/2) + ".card-deck ").append(template)
-    }
-
-    i++;
+    $("#" + parseInt(i / 2) + ".card-deck ").append(template)
   }
+  i++;
+}
 
 
-  
+
 
 class mainpageHandler {
 
@@ -61,13 +60,13 @@ class mainpageHandler {
 
   getNextTwenty() {
     let query = database.ref('news/');
-        query.orderByChild("id").limitToFirst(20).startAt(last).on("child_added", function (data) {
-            if (keys.includes(data.key) || sources.includes(data.val().img)) {  
-               
-             } else {
-                render(data);
-            }
-          });
+    query.orderByChild("id").limitToFirst(20).startAt(last).on("child_added", function (data) {
+      if (keys.includes(data.key) || sources.includes(data.val().img)) {
+
+      } else {
+        render(data);
+      }
+    });
   }
 }
 
@@ -78,8 +77,7 @@ $(window).scroll(function () {
 });
 
 handler = new mainpageHandler();
-// main call
+
 window.onload = () => {
-  //main trigger
   handler.getLastTwentyPosts();
 }

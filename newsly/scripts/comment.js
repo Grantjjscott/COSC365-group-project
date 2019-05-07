@@ -1,5 +1,3 @@
-
-
 function writeNewPost(key, username, body) {
   // A post entry.
   var postData = {

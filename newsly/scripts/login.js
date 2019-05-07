@@ -5,7 +5,6 @@ class LoginHandler {
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
       let errorCode = error.code;
       let errorMessage = error.message;
-    
 
       if (errorCode === 'auth/wrong-password') {
         alert('Wrong password.');

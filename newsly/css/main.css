@@ -1,23 +1,21 @@
-
-body{
+body {
   background-image:  url("../img/newsbg.jpg");
  
 }
 
-#card-buttons{
+#card-buttons {
   align-content: center;
 }
-
 
 .container {
   padding-top: 60px;
 }
 
-#cardcontainer{
+#cardcontainer {
 background-color:rgb(220, 220, 220, 0.5);
 }
 
-.card-image-top{
+.card-image-top {
   width: 500;
   height: 300;
 }
