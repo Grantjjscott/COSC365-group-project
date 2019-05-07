@@ -29,7 +29,7 @@ function getComments(data) {
     let text = data.text;
     let date = data.date;
     const stub = `
-    <div class="card">
+    <div class="card mr-5 ml-5 mb-2 mt-1">
       <div class="card-header">
         ${user}
       </div>

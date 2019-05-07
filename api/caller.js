@@ -29,9 +29,9 @@ class fireStarter {
     let postData = {"comments":[
       {
       "comment":{
-        "user":"Newsly team",
+        "user":"Newsly Team",
         "date": date,
-        "text":" this article was sourced using newsapi.org"
+        "text":" This article was sourced using newsapi.org."
     }
   }
     ]}
