@@ -1,5 +1,5 @@
 
-var i =-56;
+var i =-171;
 var headlines = new Array();
 class fireStarter {
     start() {
@@ -25,12 +25,13 @@ class fireStarter {
   }
 
   function addComments(key){
+   date = new Date();
     let postData = {"comments":[
       {
       "comment":{
-        "user":"yeet",
-        "date":"yeet",
-        "text":"yeet"
+        "user":"Newsly team",
+        "date": date,
+        "text":" this article was sourced using newsapi.org"
     }
   }
     ]}

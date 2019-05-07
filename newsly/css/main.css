@@ -1,3 +1,8 @@
+#top{
+ float: left;
+ width: 100%;
+}
+
 body {
   background-image:  url("../img/newsbg.jpg");
  

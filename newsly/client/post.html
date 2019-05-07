@@ -18,12 +18,22 @@
 
   <!-- Navigation -->
   <nav class="navbar navbar-dark bg-primary fixed-top">
-    <a class="navbar-brand" href="index.html">Newsly</a>
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">Account</a>
-      </li>
-    </ul>
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Newsly</a>
+      <div class="h4 text-center text-light">Simple, Easy Newsly</div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <div class="btn-group dropdown">
+            <button class="btn btn-secondary dropdown-toggle bg-primary border-primary" type="button" id="Account"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </button>
+            <ul id="user-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
   </nav>
 
   <div id="postPage">

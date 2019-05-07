@@ -1,31 +1,33 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 const id = urlParams.get('id');
-console.log(id);
+
 
 // This gets the news article from the database.
 let query = database.ref('news/').child(id)
   .once('value')
   .then(function (data) {
-    console.log(data);
+  
     renderPost(data);
-    console.log(data.val())
+   
   });
 
 
 // This gets the comments from the database
-let commentQuery = database.ref('Feedback/').child(id)
-  .once('value')
-  .then(function (data) {
-    console.log(data.val().comments);
-    getComments(data);
+let commentQuery = database.ref('Feedback/'+id +'/comments/')
+  .on("child_added",function(data){
+    mydbobj = data.val();
+    console.log(data.val());
+    getComments(data.val().comment);
   });
 
+ 
+
 function getComments(data) {
-  for (let i = 0; i < data.val().comments.length; i++) {
-    let user = data.val().comments[i].comment.user;
-    let text = data.val().comments[i].comment.text;
-    let date = data.val().comments[i].comment.date;
+   {
+    let user = data.user;
+    let text = data.text;
+    let date = data.date;
     const stub = `
     <div class="card">
       <div class="card-header">
@@ -59,6 +61,8 @@ function renderPost(data) {
         <hr>
         <img class="img-fluid rounded" src="${img}" alt="">
         <hr>
+        <a class="btn btn-link" href=${link}>Source</a>
+        <hr>
         <p class="lead">${summary}</p>
         <hr>
         
@@ -88,31 +92,34 @@ function renderPost(data) {
   userName.addEventListener("change", function () { userName = userName.value; });
   textArea.addEventListener("change", function () { textArea = textArea.value; });
   button.addEventListener("click", function () { writeNewPost(userName, textArea, key) });
-  console.log('first key', key);
+
 }
 
 
 function writeNewPost(userName, body, key) {
+  date = new Date().toUTCString();
   console.log('second should be same', key);
-  let query = firebase.database().ref('/Feedback/' + id + '/');
+  let query = firebase.database().ref('/Feedback/' + key + '/comments/');
   let newChildRef = query.push();
   console.log(newChildRef.key);
   // A post entry.
   // Get a key for a new Post.
   //let newPostKey = firebase.database().ref().child('Feedback/' + id + '/').push().key;
-  const date = new Date();
+  
   console.log(date);
 
   const postData = {
-    "comments": [
-      {
-        "comment": {
+    
+      
+        comment: {
+          "date": date,
           "user": userName,
-          "text": body
+          "text": body,
+          
         }
-      }
-    ]
+      
+    
   };
 
-  query.set(postData);
+  newChildRef.set(postData);
 }
