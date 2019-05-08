@@ -1,34 +1,25 @@
 const urlParams = new URLSearchParams(window.location.search);
-
 const id = urlParams.get('id');
 
-
 // This gets the news article from the database.
-let query = database.ref('news/').child(id)
-  .once('value')
-  .then(function (data) {
-  
+let query = database.ref('news/').child(id).once('value')
+  .then(data => {
     renderPost(data);
-   
   });
 
-
 // This gets the comments from the database
-let commentQuery = database.ref('Feedback/'+id +'/comments/')
-  .on("child_added",function(data){
+let commentQuery = database.ref('Feedback/' + id + '/comments/')
+  .on("child_added", data => {
     mydbobj = data.val();
     console.log(data.val());
     getComments(data.val().comment);
   });
 
- 
-
-function getComments(data) {
-   {
-    let user = data.user;
-    let text = data.text;
-    let date = data.date;
-    const stub = `
+const getComments = data => {
+  let user = data.user;
+  let text = data.text;
+  let date = data.date;
+  const stub = `
     <div class="card mr-5 ml-5 mb-2 mt-1">
       <div class="card-header">
         ${user}
@@ -38,11 +29,10 @@ function getComments(data) {
         <footer class="blockquote-footer">${date}</footer>
       </div>
     </div>`
-    $("#user-comment").before(stub);
-  }
+  $("#user-comment").before(stub);
 }
 
-function renderPost(data) {
+const renderPost = data => {
   obj = data
   key = (data.key);
   last = data.val().id
@@ -55,7 +45,7 @@ function renderPost(data) {
   const template = `
     <div class="container" id="post">
       <div class="text-center">
-        <h1 class="mt-4">${headline}</h1>
+        <h1 class="mt-5">${headline}</h1>
         <hr>
         <p>Posted on ${date}</p>
         <hr>
@@ -89,36 +79,22 @@ function renderPost(data) {
   let userName = document.getElementById('name');
   let textArea = document.getElementById('comment');
   let button = document.getElementById('button');
-  userName.addEventListener("change", function () { userName = userName.value; });
-  textArea.addEventListener("change", function () { textArea = textArea.value; });
-  button.addEventListener("click", function () { writeNewPost(userName, textArea, key) });
-
+  userName.addEventListener("change", () => { userName = userName.value; });
+  textArea.addEventListener("change", () => { textArea = textArea.value; });
+  button.addEventListener("click", () => { writeNewPost(userName, textArea, key) });
 }
 
-
-function writeNewPost(userName, body, key) {
+const writeNewPost = (userName, body, key) => {
   date = new Date().toUTCString();
-  console.log('second should be same', key);
   let query = firebase.database().ref('/Feedback/' + key + '/comments/');
   let newChildRef = query.push();
-  console.log(newChildRef.key);
-  // A post entry.
-  // Get a key for a new Post.
-  //let newPostKey = firebase.database().ref().child('Feedback/' + id + '/').push().key;
-  
-  console.log(date);
 
   const postData = {
-    
-      
-        comment: {
-          "date": date,
-          "user": userName,
-          "text": body,
-          
-        }
-      
-    
+    comment: {
+      "date": date,
+      "user": userName,
+      "text": body,
+    }
   };
 
   newChildRef.set(postData);

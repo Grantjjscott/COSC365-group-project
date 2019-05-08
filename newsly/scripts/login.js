@@ -4,7 +4,6 @@ class LoginHandler {
     console.log("attempting to log in...");
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
       let errorCode = error.code;
-      let errorMessage = error.message;
 
       if (errorCode === 'auth/wrong-password') {
         alert('Wrong password.');
@@ -37,7 +36,7 @@ class LoginHandler {
   signOut() {
     console.log("signing out")
     firebase.auth().signOut().then(function () {
-    }).catch(function (error) {
+    }).catch(error => {
       return res.status(400).json(error);
     });
   }
@@ -46,10 +45,9 @@ class LoginHandler {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(function (error) {
         let errorCode = error.code;
-        let errorMessage = error.message;
 
         if (errorCode == 'auth/weak-password') {
-          console.log('The password is too weak.')
+          console.log('The password is too weak.');
           return ('The password is too weak.');
         }
 

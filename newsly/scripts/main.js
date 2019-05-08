@@ -44,14 +44,11 @@ function render(data) {
   i++;
 }
 
-
-
-
 class mainpageHandler {
 
   getLastTwentyPosts() {
     let query = database.ref('news/');
-    query.orderByChild("id").limitToFirst(20).on("child_added", function (data) {
+    query.orderByChild("id").limitToFirst(20).on("child_added", data => {
       if (!(keys.includes(data.key))) {
         render(data);
       }
@@ -70,9 +67,9 @@ class mainpageHandler {
   }
 }
 
-$(window).scroll(function () {
+$(window).scroll(() => {
   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500) {
-    handler.getNextTwenty()
+    handler.getNextTwenty();
   }
 });
 
