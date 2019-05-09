@@ -41,24 +41,27 @@ class NewAccountHandler {
           let errorCode = error.code;
 
           if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.')
             console.log('The password is too weak.')
             return ('The password is too weak.');
           }
 
           if (errorCode == 'auth/email-already-in-use') {
+            alert('Email is already in use');
             console.log('Email is already in use');
             return ('Email is already in use');
           }
 
           if (errorCode === 'auth/invalid-email') {
+            alert('invalid email.');
             console.log('invalid email.');
             return ('invalid email.');
           }
 
           console.log(error);
         });
-      window.location.href = ("../client/login.html");
     }
+    window.location.href = ("../client/login.html");
   }
 }
 
